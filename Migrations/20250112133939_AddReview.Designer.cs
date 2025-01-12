@@ -4,6 +4,7 @@ using FlavorFusion.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlavorFusion.Migrations
 {
     [DbContext(typeof(FlavorFusionContext))]
-    partial class FlavorFusionContextModelSnapshot : ModelSnapshot
+    [Migration("20250112133939_AddReview")]
+    partial class AddReview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,9 +44,11 @@ namespace FlavorFusion.Migrations
 
             modelBuilder.Entity("FlavorFusion.Models.MealPlan", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Breakfast")
                         .IsRequired()
@@ -60,18 +65,20 @@ namespace FlavorFusion.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("Lunch")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.ToTable("MealPlan");
                 });
@@ -124,40 +131,6 @@ namespace FlavorFusion.Migrations
                     b.ToTable("RecipeCategory");
                 });
 
-            modelBuilder.Entity("FlavorFusion.Models.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MealPlanName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MealPlanName");
-
-                    b.ToTable("Review");
-                });
-
             modelBuilder.Entity("FlavorFusion.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -208,25 +181,9 @@ namespace FlavorFusion.Migrations
                     b.Navigation("Recipe");
                 });
 
-            modelBuilder.Entity("FlavorFusion.Models.Review", b =>
-                {
-                    b.HasOne("FlavorFusion.Models.MealPlan", "MealPlan")
-                        .WithMany("Reviews")
-                        .HasForeignKey("MealPlanName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MealPlan");
-                });
-
             modelBuilder.Entity("FlavorFusion.Models.Category", b =>
                 {
                     b.Navigation("RecipeCategories");
-                });
-
-            modelBuilder.Entity("FlavorFusion.Models.MealPlan", b =>
-                {
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("FlavorFusion.Models.Recipe", b =>

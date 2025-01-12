@@ -35,9 +35,17 @@ namespace FlavorFusion.Data
                 .HasForeignKey(rc => rc.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.MealPlan)
+                .WithMany(mp => mp.Reviews)
+                .HasForeignKey(r => r.MealPlanName)
+                .HasPrincipalKey(mp => mp.Name) 
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<FlavorFusion.Models.MealPlan> MealPlan { get; set; } = default!;
+        public DbSet<FlavorFusion.Models.Review> Review { get; set; } = default!;
 
 
 

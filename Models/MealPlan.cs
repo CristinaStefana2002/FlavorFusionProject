@@ -5,7 +5,7 @@ namespace FlavorFusion.Models
     public class MealPlan
     {
         public int Id { get; set; }
-
+        [Key]
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
@@ -21,6 +21,9 @@ namespace FlavorFusion.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         [Required]
-        public string UserName { get; set; } 
+        public string UserName { get; set; }
+
+        public List<Review> Reviews { get; set; } = new List<Review>();
+
     }
 }
