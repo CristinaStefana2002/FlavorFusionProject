@@ -39,15 +39,12 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+    <main role="main" class="container pb-3" style="min-height: 100vh; overflow-y: auto;">
+        @RenderBody()
+    </main>
+    <footer class="border-top footer text-muted mt-4">
         <div class="container">
-            &copy; 2025 - FlavorFusion - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2025 - FlavorFusion - <a href="/Privacy">Privacy</a>
         </div>
     </footer>
 
