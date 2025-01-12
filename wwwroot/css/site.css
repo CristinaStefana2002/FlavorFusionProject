@@ -36,6 +36,15 @@ body y {
     padding: 0;
     color: #333;
 }
+.container {
+    padding-bottom: 3rem; 
+}
+footer {
+    margin-top: 2rem;
+    position: relative;
+    width: 100%;
+}
+
 
 .welcome-section {
     text-align: center;
@@ -65,7 +74,7 @@ body y {
     padding: 30px;
 }
 
-=.recipe-card {
+.recipe-card {
     width: 100%;
     max-width: 350px;
     margin: 20px;
