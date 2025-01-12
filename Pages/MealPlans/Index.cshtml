@@ -1,0 +1,70 @@
+﻿@page
+@model FlavorFusion.Pages.MealPlans.IndexModel
+
+@{
+    ViewData["Title"] = "Meal Plans";
+}
+
+<!-- Welcome Section -->
+<div class="welcome-section text-center py-4" style="background-color: #f9f9f9; border-radius: 10px; margin-bottom: 20px;">
+    <h2 class="display-4" style="color: #2c3e50;">Welcome to Meal Plans</h2>
+    <p style="font-size: 18px; color: #7f8c8d;">Discover curated meal plans or create your own!</p>
+    <a asp-page="Create" class="btn btn-success btn-lg mt-3">Create New Meal Plan</a>
+</div>
+
+<!-- Meal Plans Table -->
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead class="table" style="background-color: #DCF4F4; text-align: center;">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.MealPlan[0].Name)</th>
+                <th>Description</th>
+                <th>Breakfast</th>
+                <th>Lunch</th>
+                <th>Dinner</th>
+                <th>Created At</th>
+                <th>By</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.MealPlan)
+            {
+                <tr>
+                    <td style="vertical-align: middle;">
+                        <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
+                    </td>
+                    <td style="vertical-align: middle; white-space: pre-wrap;">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.Breakfast)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.Lunch)
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @Html.DisplayFor(modelItem => item.Dinner)
+                    </td>
+                    <td style="vertical-align: middle; text-align: center;">
+                        @item.CreatedAt.ToString("dd-MMM-yyyy HH:mm")
+                    </td>
+                    <td style="vertical-align: middle; text-align: center;">
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td style="vertical-align: middle; text-align: center;">
+                  
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td> 
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Footer -->
+<footer class="text-center py-3" style="background-color: #f8f9fa; margin-top: 20px; border-top: 1px solid #dee2e6;">
+    <p class="mb-0" style="color: #6c757d;">&copy; 2025 - Flavor Fusion</p>
+</footer>

@@ -1,0 +1,64 @@
+﻿@page
+@model FlavorFusion.Pages.MealPlans.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>MealPlan</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MealPlan.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MealPlan.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MealPlan.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MealPlan.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MealPlan.Breakfast)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MealPlan.Breakfast)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MealPlan.Lunch)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MealPlan.Lunch)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MealPlan.Dinner)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MealPlan.Dinner)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MealPlan.CreatedAt)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MealPlan.CreatedAt)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MealPlan.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MealPlan.UserName)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="MealPlan.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

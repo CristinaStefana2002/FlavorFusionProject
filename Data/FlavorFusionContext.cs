@@ -37,6 +37,7 @@ namespace FlavorFusion.Data
 
             base.OnModelCreating(modelBuilder);
         }
+        public DbSet<FlavorFusion.Models.MealPlan> MealPlan { get; set; } = default!;
 
 
 
