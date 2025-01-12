@@ -1,0 +1,90 @@
+﻿@page
+@model FlavorFusion.Pages.Recipes.IndexModel
+
+@{
+    ViewData["Title"] = "Explore Our Elegant Recipes";
+}
+
+<!-- Welcome Section -->
+<div class="welcome-section">
+    <h2>Welcome! Discover our delicious recipes.</h2>
+    <p>Find the recipe with your favorite ingredients and let us know your thoughts!</p>
+</div>
+
+<p>
+    <a asp-page="Create" class="btn btn-success">Tell us your magic recipe! Create a new one.</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeD.Recipes.FirstOrDefault().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeD.Recipes.FirstOrDefault().Ingredients)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipeD.Recipes.FirstOrDefault().Instructions)
+            </th>
+            <th>
+                Categories
+            </th>
+            <th>Written By</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var recipe in Model.RecipeD.Recipes)
+        {
+            string selectedRow = "";
+            if (recipe.Id == Model.RecipeID)
+            {
+                selectedRow = "table-success";
+            }
+
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => recipe.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => recipe.Ingredients)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => recipe.Instructions)
+                </td>
+                <td>
+                    @if (recipe.RecipeCategories != null)
+                    {
+                        foreach (var category in recipe.RecipeCategories)
+                        {
+                            if (category.Category != null)
+                            {
+                                <span>@category.Category.Name</span>
+
+                                <br />
+                            }
+                        }
+                    }
+                </td>
+                <td>
+                    @if (recipe.User != null)
+                    {
+                        <span>@recipe.User.UserName</span>
+                    }
+                    else
+                    {
+                        <span>No User</span>
+                    }
+                </td>
+
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@recipe.Id" class="btn btn-warning btn-sm">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@recipe.Id" class="btn btn-info btn-sm">Details</a> |
+                    <form method="post" asp-page="./Delete" asp-route-id="@recipe.Id" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
