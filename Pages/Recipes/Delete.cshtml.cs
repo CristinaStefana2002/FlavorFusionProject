@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using FlavorFusion.Data;
 using FlavorFusion.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlavorFusion.Pages.Recipes
 {

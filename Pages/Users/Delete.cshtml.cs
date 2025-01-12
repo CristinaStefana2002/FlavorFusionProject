@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace FlavorFusion.Pages.Users
 {
     [Authorize(Roles = "Admin")]
-
     public class DeleteModel : PageModel
     {
         private readonly FlavorFusion.Data.FlavorFusionContext _context;

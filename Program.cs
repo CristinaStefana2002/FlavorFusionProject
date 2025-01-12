@@ -4,10 +4,18 @@ using FlavorFusion.Data;
 using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+policy.RequireRole("Admin"));
+});
+
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Recipes");
+    options.Conventions.AuthorizeFolder("/MealPlans");
+   
+
 }); ;
 builder.Services.AddDbContext<FlavorFusionContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FlavorFusionContext") ?? throw new InvalidOperationException("Connection string 'FlavorFusionContext' not found.")));
@@ -20,7 +28,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
