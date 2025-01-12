@@ -14,8 +14,8 @@
 <p>
     <a asp-page="Create" class="btn btn-success">Tell us your magic recipe! Create a new one.</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-hover table-bordered">
+    <thead class="table" style="background-color: #DCF4F4">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.RecipeD.Recipes.FirstOrDefault().Name)
@@ -29,7 +29,7 @@
             <th>
                 Categories
             </th>
-            <th>Written By</th>
+            <th>Author</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -78,11 +78,9 @@
                 </td>
 
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@recipe.Id" class="btn btn-warning btn-sm">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@recipe.Id" class="btn btn-info btn-sm">Details</a> |
-                    <form method="post" asp-page="./Delete" asp-route-id="@recipe.Id" class="d-inline">
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
+                    <a asp-page="./Edit" asp-route-id="@recipe.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@recipe.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@recipe.Id">Delete</a>
                 </td>
             </tr>
         }

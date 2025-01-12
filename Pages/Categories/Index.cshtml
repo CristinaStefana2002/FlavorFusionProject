@@ -5,32 +5,37 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <h4>Welcome to the Categories Manager!</h4>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Category[0].Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Category) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <p style="font-size: 1.1rem; color: #555;">
+        Organize your recipes like a pro! Categories keep your meals sorted and deliciously easy to find. Add, edit, or delete categories below!
+    </p>
+    <div>
+        <a asp-page="Create" class="btn btn-success">+ Add New Category</a>
+    </div>
+
+    <table class="table table-hover table-bordered">
+        <thead class="table" style="background-color: #DCF4F4">
+            <tr>
+                <th>Category Name</th>
+                <th class="text-center" style="width: 30%;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Category)
+            {
+                    <tr>
+                        <td>
+                            <span class="fw-bold text-secondary">@Html.DisplayFor(modelItem => item.Name)</span>
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+</div>

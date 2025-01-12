@@ -4,14 +4,18 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<div class="container mt-4">
+    <h4 class="display-4">Welcome to Flavor Fusion Members!</h4>
+    <p class="lead">
+        Here you can see our community members, manage their profiles, and explore their delicious recipes.
+        Feel free to browse or create new members and content.
+    </p>
+    <p>
+        <a asp-page="Create" class="btn btn-primary">Create New</a>
+    </p>
+</div>
+<table class="table table-hover table-bordered">
+        <thead class="table" style="background-color: #DCF4F4">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.User[0].UserName)
@@ -22,21 +26,21 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model.User) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+        <tbody>
+    @foreach (var item in Model.User) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
 </table>
