@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using FlavorFusion.Data;
 using FlavorFusion.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlavorFusion.Pages.Users
 {
+    [Authorize(Roles = "Admin")]
+
     public class DeleteModel : PageModel
     {
         private readonly FlavorFusion.Data.FlavorFusionContext _context;

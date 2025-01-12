@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -11,33 +12,30 @@ namespace FlavorFusion.Pages.Reviews
 {
     public class CreateModel : PageModel
     {
-        private readonly FlavorFusionContext _context;
+        private readonly FlavorFusion.Data.FlavorFusionContext _context;
 
-        public CreateModel(FlavorFusionContext context)
+        public CreateModel(FlavorFusion.Data.FlavorFusionContext context)
         {
             _context = context;
         }
 
-        public SelectList MealPlanList { get; set; }
-
-        [BindProperty]
-        public Review Review { get; set; }
-
         public IActionResult OnGet()
         {
-            MealPlanList = new SelectList(_context.MealPlan, "Id", "Name");
+        ViewData["MealPlanName"] = new SelectList(_context.MealPlan, "Name", "Name");
             return Page();
         }
 
+        [BindProperty]
+        public Review Review { get; set; } = default!;
+
+        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                MealPlanList = new SelectList(_context.MealPlan, "Id", "Name");
                 return Page();
             }
 
-            // Add the review to the context and save
             _context.Review.Add(Review);
             await _context.SaveChangesAsync();
 

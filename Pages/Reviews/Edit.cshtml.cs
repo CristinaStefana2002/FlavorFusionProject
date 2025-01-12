@@ -36,6 +36,7 @@ namespace FlavorFusion.Pages.Reviews
                 return NotFound();
             }
             Review = review;
+           ViewData["MealPlanName"] = new SelectList(_context.MealPlan, "Name", "Name");
             return Page();
         }
 

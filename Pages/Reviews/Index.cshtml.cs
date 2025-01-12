@@ -23,7 +23,8 @@ namespace FlavorFusion.Pages.Reviews
 
         public async Task OnGetAsync()
         {
-            Review = await _context.Review.ToListAsync();
+            Review = await _context.Review
+                .Include(r => r.MealPlan).ToListAsync();
         }
     }
 }

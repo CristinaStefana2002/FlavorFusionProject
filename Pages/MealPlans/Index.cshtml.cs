@@ -19,11 +19,24 @@ namespace FlavorFusion.Pages.MealPlans
             _context = context;
         }
 
-        public IList<MealPlan> MealPlan { get;set; } = default!;
+        public IList<MealPlan> MealPlan { get; set; } = default!;
+        public IList<Review> Reviews { get; set; } = new List<Review>();
+
+        [BindProperty(SupportsGet = true)]
+        public int? SelectedMealPlanId { get; set; }
 
         public async Task OnGetAsync()
         {
-            MealPlan = await _context.MealPlan.ToListAsync();
+            MealPlan = await _context.MealPlan
+                .Include(mp => mp.Reviews)
+                .ToListAsync();
+
+            if (SelectedMealPlanId.HasValue)
+            {
+                Reviews = await _context.Review
+                    .Where(r => r.MealPlan.Id == SelectedMealPlanId.Value)
+                    .ToListAsync();
+            }
         }
     }
 }

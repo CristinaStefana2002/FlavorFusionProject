@@ -5,14 +5,12 @@
     ViewData["Title"] = "Meal Plans";
 }
 
-<!-- Welcome Section -->
 <div class="welcome-section text-center py-4" style="background-color: #f9f9f9; border-radius: 10px; margin-bottom: 20px;">
     <h2 class="display-4" style="color: #2c3e50;">Welcome to Meal Plans</h2>
     <p style="font-size: 18px; color: #7f8c8d;">Discover curated meal plans or create your own!</p>
     <a asp-page="Create" class="btn btn-success btn-lg mt-3">Create New Meal Plan</a>
 </div>
 
-<!-- Meal Plans Table -->
 <div class="table-responsive">
     <table class="table table-hover table-bordered">
         <thead class="table" style="background-color: #DCF4F4; text-align: center;">
@@ -53,18 +51,56 @@
                         @Html.DisplayFor(modelItem => item.UserName)
                     </td>
                     <td style="vertical-align: middle; text-align: center;">
-                  
                         <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                    </td> 
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a> |
+                        <a href="?SelectedMealPlanId=@item.Id">View Reviews</a>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
 
-<!-- Footer -->
-<footer class="text-center py-3" style="background-color: #f8f9fa; margin-top: 20px; border-top: 1px solid #dee2e6;">
-    <p class="mb-0" style="color: #6c757d;">&copy; 2025 - Flavor Fusion</p>
-</footer>
+@if (Model.SelectedMealPlanId.HasValue)
+{
+    var selectedMealPlan = Model.MealPlan.FirstOrDefault(mp => mp.Id == Model.SelectedMealPlanId);
+    if (selectedMealPlan != null)
+    {
+        <div class="card mt-4">
+            <div class="card-header bg-primary text-white" style="background-color: #F4E4DC;">
+                <h4>Reviews for "@selectedMealPlan.Name"</h4>
+            </div>
+            <div class="card-body">
+                @if (Model.Reviews != null && Model.Reviews.Any())
+                {
+                    <table class="table table-hover table-bordered">
+                        <thead style="background-color: #F4E4DC;">
+                            <tr>
+                                <th>User</th>
+                                <th>Rating</th>
+                                <th>Comment</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var review in Model.Reviews)
+                            {
+                                <tr>
+                                    <td>@review.UserName</td>
+                                    <td>@review.Rating</td>
+                                    <td>@review.Comment</td>
+                                    <td>@review.CreatedAt.ToString("dd-MMM-yyyy HH:mm")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No reviews available for this meal plan.</p>
+                }
+            </div>
+        </div>
+    }
+}
